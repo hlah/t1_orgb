@@ -58,3 +58,28 @@ acima.
 Bastou as mesmas modificações feitas no Monociclo. Os sinais de controle
 também foram os mesmos
 
+# BLTZ
+
+## Monociclo
+
+## Multiciclo
+
+## Pipeline
+
+# JR
+
+## Monociclo
+
+## Multiciclo
+
+## Pipeline
+
+A dificuldade do JR é a utilização do Mesmo Opcode que operações aritiméticas
+do tipo R já impementadas. Para possibilitar a detectação do JR os 6 bits do
+campo funct também são passados para o bloco de controle que agora, quando
+detecta que a instrução é um JR, envia os sinais de controles apropiados, caso
+contrario envia os valores como eram antes. Como a definição da instrução JR
+força o uso do registrador em Rt, para implementá-lo força se uma soma entre
+Rs e Rt, produzindo Rs, o endereço a ser pulado. Além disso expande-se o
+multiplexador que seleciona o endereço da proxima instrução para pode utilizar
+o resultado a ALU.
