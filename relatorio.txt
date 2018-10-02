@@ -1,0 +1,60 @@
+
+# SRLV
+
+## Monociclo
+
+Para imlpemntar a instrução SRLV tanto no Monociclo bastou adicionar a
+funcionalidade de fazer shift right lógico na ALU obdecendo o comando 
+correto passado pelo campo funct.
+Nenhum sinal de controle adicional foi necessário pois a
+instrução utiliza o mesmo opcode que as outras funções do tipo R (como add,
+sub, etc)
+
+## Multiciclo
+
+As mesmas alterações feitas no Monociclo foram necessárias. Nenhum estado novo
+no bloco de controle foi necessário pois as mesmas das instruções do tipo R
+podem ser utilizadas.
+
+## Pipeline
+
+Novamente, somente as mesmas alteraçoes feitas na ALU do monociclo foram 
+necessárias.
+
+
+# ANDI
+
+## Monociclo
+
+No monociclo foi necessário modificar o circuito ALUcontrol para permitir que 
+ele forsasse um and na ALU, foi utilizado o código 11 para fazer isso já que
+este não era usado previamente. A ALU já possuia a operação de and então não
+foi necessário modifica-la. Por fim foi adicionado no bloco de controle os
+sinais correspondete ao opcode da instrução ADDI: AluOp com o código 11, como
+explicado acima; AluSrc em 1 para selecionar o valor imediat como segundo
+operando na ALU; RegWrite em 1 para salvar o valor no registrador; e RegDst em
+0 para salvar o valor do registrator em Rt. Os demais sinais foram mantidos em
+zero.
+
+## Multiciclo
+
+No multiciclo além da alteração feita no Monociclo para forçar o ANDI na
+AluControl, foram criados dois novos estados no bloco de controle para
+realizar a instrução ANDI.
+1 - Ciclo de execução do ANDI: ALUop em 11 para forçar o andi na ALU; ALUSrcB
+com 10 para selecionar o valor imediato como segundo operando da ALU; AluSrcA em 
+1 para selecionar o registrador em Rs como primeiro operando da ALU. Os demais
+sinais de controle são mantidos em 0.
+2 - Ciclo de escrita do resultado em registrador: RegWrite é setado em 1 e
+RegDst mantido em zero para selecionar Rt como destino da escrita. Os demais
+sinais ficam em zero.
+A execução do ANDI tem 4 ciclos, os dois primeiros são o ciclo de busca de
+decodificação comum a todas as instruções, então segue o ciclo (1) e (2)
+acima.
+
+
+## Pipeline
+
+Bastou as mesmas modificações feitas no Monociclo. Os sinais de controle
+também foram os mesmos
+
