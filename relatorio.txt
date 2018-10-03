@@ -1,3 +1,10 @@
+# Relatorio De Implementação de Instruções no MIPS
+Integrantes:
+Augusto Dalcin Peiter
+Gustavo Acauan Lorentz
+Mateus Davi Simon
+Pedro Weber Mendonça
+
 
 # SRLV
 
@@ -58,13 +65,35 @@ acima.
 Bastou as mesmas modificações feitas no Monociclo. Os sinais de controle
 também foram os mesmos
 
+
 # BLTZ
 
 ## Monociclo
 
+Para a instrução BLTZ ser implementada no Monociclo, o grupo introduziu um
+novo sinal de controle, chamado REGIMM. Este bit de controle deve ser ligado
+apenas quando o OPCODE de uma instrução for do tipo REGIMM. A instrução faz
+branch caso o rs tenha valor negativo. Para que funcionasse, o grupo
+introduziu uma AND-2 entre o bit de controle novo e o bit mais significativo
+do rs, assim, quando for instrução do tipo REGIMM E rs for negativo, deve
+fazer branch. Para que haja branches normais e branches de tipo REGIMM,
+precisa existir uma OR entre esses dois casos, ou seja, (Branch AND Zero) OR
+(REGIMM AND rs_negativo).
+
 ## Multiciclo
 
+No multiciclo o BLTZ tem 3 ciclos, os dois priemios são os mesmos comuns a
+todos as instruções. O Terceiro ciclo é um novo ciclo que tem um sinal novo
+criado só para ele e que é feito um and dele com o bit mais significativo (de
+sinal) do valor em Rs, o resultado desse and determina se será feito o branch
+ou não.
+
 ## Pipeline
+
+No pipeline, assim como no multiciclo e no monociclo, foi criado um sinal de
+controle extra que combinado com o bit mais significativo em Rs determina um
+branch.
+
 
 # JR
 
