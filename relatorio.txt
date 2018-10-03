@@ -81,6 +81,15 @@ mux cujo sinal de controle é criado.
 
 ## Multiciclo
 
+No multiciclo, para poder utilizar o JR sem comprometer as outras instruções
+que tem o mesmo opcode, utiliza-se o campo funct para verificar se a instrução
+e JR, em caso positivo "traduz" o opcode para um outro valor não utilizado,
+assim é possível usar as mesmas tabelas de proximo estado e de sinais.
+Apenas um estado é criado para implementar o JR, assim o JR completa em 3
+ciclos. Este novo estado passa PCwrite como true, forçando uma escrita do PC;
+e 11 no PCSource, este valor seleciona o valor de Rs no mux que seleciona o
+endereço a ser escrito no PC (11 não era usado previamente)
+
 ## Pipeline
 
 No pipeline a foi utilizada a mesma etratégia feita no Monociclo, mas adequado
