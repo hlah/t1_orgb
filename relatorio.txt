@@ -10,8 +10,8 @@ Pedro Weber Mendonça
 
 ## Monociclo
 
-Para imlpemntar a instrução SRLV tanto no Monociclo bastou adicionar a
-funcionalidade de fazer shift right lógico na ALU obdecendo o comando 
+Para implementar a instrução SRLV tanto no Monociclo bastou adicionar a
+funcionalidade de fazer shift right lógico na ALU obedecendo o comando 
 correto passado pelo campo funct.
 Nenhum sinal de controle adicional foi necessário pois a
 instrução utiliza o mesmo opcode que as outras funções do tipo R (como add,
@@ -34,11 +34,11 @@ necessárias.
 ## Monociclo
 
 No monociclo foi necessário modificar o circuito ALUcontrol para permitir que 
-ele forsasse um and na ALU, foi utilizado o código 11 para fazer isso já que
+ele forçasse um and na ALU, foi utilizado o código 11 para fazer isso já que
 este não era usado previamente. A ALU já possuia a operação de and então não
 foi necessário modifica-la. Por fim foi adicionado no bloco de controle os
-sinais correspondete ao opcode da instrução ADDI: AluOp com o código 11, como
-explicado acima; AluSrc em 1 para selecionar o valor imediat como segundo
+sinais correspondentes ao opcode da instrução ADDI: AluOp com o código 11, como
+explicado acima; AluSrc em 1 para selecionar o valor imediato como segundo
 operando na ALU; RegWrite em 1 para salvar o valor no registrador; e RegDst em
 0 para salvar o valor do registrator em Rt. Os demais sinais foram mantidos em
 zero.
@@ -82,8 +82,8 @@ precisa existir uma OR entre esses dois casos, ou seja, (Branch AND Zero) OR
 
 ## Multiciclo
 
-No multiciclo o BLTZ tem 3 ciclos, os dois priemios são os mesmos comuns a
-todos as instruções. O Terceiro ciclo é um novo ciclo que tem um sinal novo
+No multiciclo o BLTZ tem 3 ciclos, os dois primeiros são os mesmos comuns a
+todas as instruções. O Terceiro ciclo é um novo ciclo que tem um sinal novo
 criado só para ele e que é feito um and dele com o bit mais significativo (de
 sinal) do valor em Rs, o resultado desse and determina se será feito o branch
 ou não.
@@ -100,7 +100,7 @@ branch.
 ## Monociclo
 
 A dificuldade do JR é a utilização do Mesmo Opcode que operações aritiméticas
-do tipo R já impementadas. Para possibilitar a detectação do JR os 6 bits do
+do tipo R já implementadas. Para possibilitar a detecção do JR os 6 bits do
 campo funct também são passados para o bloco de controle que agora, quando
 detecta que a instrução é um JR, envia os sinais de controles apropiados, caso
 contrario envia os valores como eram antes. Como a definição da instrução JR
@@ -112,8 +112,8 @@ mux cujo sinal de controle é criado.
 
 No multiciclo, para poder utilizar o JR sem comprometer as outras instruções
 que tem o mesmo opcode, utiliza-se o campo funct para verificar se a instrução
-e JR, em caso positivo "traduz" o opcode para um outro valor não utilizado,
-assim é possível usar as mesmas tabelas de proximo estado e de sinais.
+é JR, em caso positivo "traduz" o opcode para um outro valor não utilizado,
+assim é possível usar as mesmas tabelas de próximo estado e de sinais.
 Apenas um estado é criado para implementar o JR, assim o JR completa em 3
 ciclos. Este novo estado passa PCwrite como true, forçando uma escrita do PC;
 e 11 no PCSource, este valor seleciona o valor de Rs no mux que seleciona o
@@ -121,6 +121,6 @@ endereço a ser escrito no PC (11 não era usado previamente)
 
 ## Pipeline
 
-No pipeline a foi utilizada a mesma etratégia feita no Monociclo, mas adequado
+No pipeline foi utilizada a mesma etratégia feita no Monociclo, mas adequado
 para o Pipeline.
 
